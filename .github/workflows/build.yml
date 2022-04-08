@@ -13,7 +13,7 @@ jobs:
         include:
           - image: erlang:23
           - image: erlang:24
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: ${{ matrix.image }}
       options: "--entrypoint /bin/bash"
