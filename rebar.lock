@@ -1,0 +1,8 @@
+[{<<"nhooks">>,
+  {git,"git@github.com:nomasystems/nhooks.git",
+       {ref,"2b1d1a1bf910a60626a51f2c1794cead7a7a235f"}},
+  0},
+ {<<"nthrottle">>,
+  {git,"git@github.com:nomasystems/nthrottle.git",
+       {ref,"3b0dcf8c5c229fbf1af2de8ba70d35787bcada09"}},
+  0}].
