@@ -83,6 +83,39 @@ ok
 true
 ```
 
+## Benchmarks
+
+Run a rebar3 shell using the `bench` profile:
+```sh
+ERL_FLAGS="+P 134217727" rebar3 as bench shell
+```
+> Note that we are increasing the default number of processes limit.
+
+Run the following command:
+```erl
+1> nqueue_bench:bench().
+```
+
+This benchmark compares `nqueue` with [`npqueue`](https://github.com/nomasystems/npqueue) (a `gen_server`-based partitioned queue) with a single partition.
+
+### Results
+
+| Consumers | Producers | Items per Producer |        nqueue (ms) |       npqueue (ms) |
+| --------- | --------- | ------------------ | ------------------ | ------------------ |
+|      2500 |      5000 |                500 |  2856.7 (±   49.3) |  4400.0 (±  164.3) |
+|      5000 |      2500 |                500 |  1973.0 (±   12.0) |  2299.7 (±   65.1) |
+|      5000 |      5000 |               5000 | 21831.7 (±  422.2) | 46924.7 (±  552.3) |
+|    250000 |    500000 |                  5 |  3563.0 (±   11.6) |  5464.7 (±   408.3) |
+|    500000 |    250000 |                  5 |  1893.7 (±   27.8) |  2288.3 (±   83.8) |
+|    500000 |    500000 |                  5 |  3694.0 (±   19.8) |  5229.7 (±   198.9) |
+
+> Results obtained using a machine with the following specs:
+> - CPU: `Intel i5-7500 (4) @ 3.800GHz`
+> - Memory: `15888MiB`
+> - Kernel: `GNU/Linux`
+> - Architecture: `x86_64`
+> - Non-virtualized platform
+
 ## Support
 
 Any doubt or suggestion? Please, check out [our issue tracker](https://github.com/nomasystems/nqueue/issues).
