@@ -31,7 +31,7 @@ start_link(Name, ConsumerCount, ConsumerFun) ->
 start_link(Name, ConsumerCount, ConsumerFun, Rps) when
     is_atom(Name),
     ConsumerCount > 0,
-    is_function(ConsumerFun),
+    is_function(ConsumerFun, 1),
     (is_integer(Rps) or is_float(Rps) or (Rps == infinity)),
     (Rps >= 0)
 ->
