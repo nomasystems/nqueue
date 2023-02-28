@@ -27,6 +27,8 @@ all() ->
         start_stop,
         api,
         not_found,
+        consumer_throwing,
+        consumer_throwing_no_log,
         consumers_waiting,
         throttling,
         supervision,
@@ -126,6 +128,37 @@ not_found(_Conf) ->
     {error, {not_found, Pid}} = nqueue:stop(Pid),
     {error, {not_found, Name}} = nqueue:in(Name, element),
     ok.
+
+consumer_throwing() ->
+    [{userdata, [{doc, "Tests that a consumer throwing doesn't crash the queue."}]}].
+
+consumer_throwing(_Conf) ->
+    Name = test_queue_throwing,
+    ConsumerFun = fun(_) -> throw(throwing) end,
+    {ok, QueuePid} = nqueue:start_link(Name, 1, ConsumerFun),
+    Ref = erlang:monitor(process, QueuePid),
+    ok = nqueue:in(Name, something),
+    receive
+        {'DOWN', Ref, _, _, _} -> throw(did_crash)
+    after 100 -> ok
+    end,
+    nqueue:stop(QueuePid).
+
+consumer_throwing_no_log() ->
+    [{userdata, [{doc, "Tests that a consumer throwing doesn't crash the queue."}]}].
+
+consumer_throwing_no_log(_Conf) ->
+    ok = logger:set_module_level(nqueue_consumer, none),
+    Name = test_queue_throwing,
+    ConsumerFun = fun(_) -> throw(throwing) end,
+    {ok, QueuePid} = nqueue:start_link(Name, 1, ConsumerFun),
+    Ref = erlang:monitor(process, QueuePid),
+    ok = nqueue:in(Name, something),
+    receive
+        {'DOWN', Ref, _, _, _} -> throw(did_crash)
+    after 100 -> ok
+    end,
+    ok = logger:unset_module_level(nhooks).
 
 consumers_waiting() ->
     [{userdata, [{doc, "Tests that consumers keep waiting until new elements join the queue."}]}].
