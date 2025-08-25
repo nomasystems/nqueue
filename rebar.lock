@@ -4,5 +4,5 @@
   0},
  {<<"nthrottle">>,
   {git,"https://github.com/nomasystems/nthrottle.git",
-       {ref,"aa11490c05aeb8e5901993894a8fe8f2588638c0"}},
+       {ref,"0f52dfc8c9825c7af0494e61532aea12134b0ba4"}},
   0}].
