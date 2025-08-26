@@ -1,8 +1,8 @@
 [{<<"nhooks">>,
-  {git,"git@github.com:nomasystems/nhooks.git",
-       {ref,"2b1d1a1bf910a60626a51f2c1794cead7a7a235f"}},
+  {git,"https://github.com/nomasystems/nhooks.git",
+       {ref,"9ad572212b78ce3360fd6712c2da035d61b45ea1"}},
   0},
  {<<"nthrottle">>,
-  {git,"git@github.com:nomasystems/nthrottle.git",
-       {ref,"3b0dcf8c5c229fbf1af2de8ba70d35787bcada09"}},
+  {git,"https://github.com/nomasystems/nthrottle.git",
+       {ref,"0f52dfc8c9825c7af0494e61532aea12134b0ba4"}},
   0}].

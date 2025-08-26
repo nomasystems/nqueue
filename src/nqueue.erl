@@ -95,14 +95,14 @@ total_out(Name) ->
 
 -spec rps(Name) -> Result when
     Name :: atom(),
-    Result :: nthrottle:rps().
+    Result :: {ok, nthrottle:rps()} | {error, not_found}.
 rps(Name) ->
     nthrottle:rps(Name).
 
 -spec rps(Name, Rps) -> Result when
     Name :: atom(),
     Rps :: nthrottle:rps(),
-    Result :: nthrottle:rps().
+    Result :: ok | {error, not_found}.
 rps(Name, Rps) when
     is_atom(Name),
     (is_integer(Rps) or is_float(Rps) or (Rps == infinity)),
